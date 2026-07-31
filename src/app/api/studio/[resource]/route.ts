@@ -21,6 +21,19 @@ import {
   initialSiteSettings,
 } from "@/db/seedData";
 
+export function generateStaticParams() {
+  return [
+    { resource: "projects" },
+    { resource: "technologies" },
+    { resource: "skills" },
+    { resource: "certifications" },
+    { resource: "achievements" },
+    { resource: "gallery" },
+    { resource: "settings" },
+    { resource: "messages" },
+  ];
+}
+
 function getModel(resource: string) {
   switch (resource) {
     case "projects":

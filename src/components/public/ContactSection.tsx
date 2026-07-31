@@ -33,6 +33,14 @@ export const ContactSection: React.FC = () => {
         body: JSON.stringify(data),
       });
 
+      if (response.status === 404) {
+        // Fallback for static GitHub Pages hosting
+        window.location.href = `mailto:mithunmp2004@gmail.com?subject=Transmission%20from%20${encodeURIComponent(data.name)}&body=${encodeURIComponent(data.message)}`;
+        setStatus("success");
+        reset();
+        return;
+      }
+
       const result = await response.json();
 
       if (!response.ok) {
@@ -42,8 +50,10 @@ export const ContactSection: React.FC = () => {
       setStatus("success");
       reset();
     } catch (err) {
-      setStatus("error");
-      setErrorMessage((err as Error).message);
+      // If API route is missing (static export client side), fallback to mailto link
+      window.location.href = `mailto:mithunmp2004@gmail.com?subject=Transmission%20from%20${encodeURIComponent(data.name)}&body=${encodeURIComponent(data.message)}`;
+      setStatus("success");
+      reset();
     }
   };
 

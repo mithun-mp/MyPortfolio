@@ -47,7 +47,11 @@ export const authOptions: NextAuthOptions = {
 };
 
 export async function getAdminSession() {
-  return await getServerSession(authOptions);
+  try {
+    return await getServerSession(authOptions);
+  } catch {
+    return null;
+  }
 }
 
 export async function checkIsAdmin(): Promise<boolean> {
